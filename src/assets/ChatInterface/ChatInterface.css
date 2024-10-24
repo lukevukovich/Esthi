@@ -1,0 +1,78 @@
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 62px;
+}
+
+.message-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.message {
+  border-radius: 16px;
+  max-width: 50%;
+  width: fit-content;
+  padding: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 9px;
+  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+  text-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 18px;
+}
+
+.peer {
+  background-color: rgb(229, 229, 229);
+  margin-right: auto;
+  align-self: flex-start;
+}
+
+.user {
+  background-color: rgb(222, 107, 126);
+  margin-left: auto;
+  align-self: flex-end;
+}
+
+.input-panel {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  margin-left: -8px;
+  background-color: rgb(169, 116, 109);
+}
+
+.input-panel input {
+  font-size: 18px;
+  background-color: white;
+  flex-grow: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+}
+
+.input-panel button {
+  font-size: 18px;
+  background-color: white;
+  width: 70px;
+  flex-shrink: 0;
+  padding: 10px;
+  margin-left: 10px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+}

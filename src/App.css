@@ -1,3 +1,18 @@
 body {
   background-color: rgb(255, 177, 167);
+  overflow-x: hidden;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(169, 116, 109);
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 177, 167);
 }
