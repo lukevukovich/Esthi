@@ -16,3 +16,23 @@ body {
 ::-webkit-scrollbar-track {
   background-color: rgb(255, 177, 167);
 }
+
+button {
+  font-size: 18px;
+  color: black;
+  background-color: white;
+  width: fit-content;
+  flex-shrink: 0;
+  padding: 10px;
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-left: 10px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}

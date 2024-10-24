@@ -1,9 +1,10 @@
 import "./Home.css";
+import Header from "../../assets/Header/Header";
 
 export default function Home() {
   return (
     <div>
-      <span>esthi.</span>
+      <Header />
     </div>
   );
 }

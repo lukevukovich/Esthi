@@ -1,5 +1,6 @@
 import "./Chat.css";
 import ChatInterface from "../../assets/ChatInterface/ChatInterface";
+import Header from "../../assets/Header/Header";
 import { useState } from "react";
 
 export default function Chat() {
@@ -22,6 +23,7 @@ export default function Chat() {
 
   return (
     <div className="chat-page">
+      <Header />
       <ChatInterface
         chatList={chatList}
         message={message}
