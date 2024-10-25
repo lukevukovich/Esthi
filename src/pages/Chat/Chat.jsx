@@ -1,7 +1,7 @@
 import "./Chat.css";
 import ChatInterface from "../../assets/ChatInterface/ChatInterface";
 import Header from "../../assets/Header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getChatGPTReply } from "../../utils/ChatGPT";
 
 export default function Chat() {
@@ -16,16 +16,35 @@ export default function Chat() {
   const [message, setMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
+  async function handleIntakeFormSubmit() {
+    setChatList([
+      {
+        text: "Welcome to esthi AI chat! How can I help you today?",
+        sender: "peer",
+      },
+    ]);
+
+    const intakeMessage = sessionStorage.getItem("clientIntakeMessage");
+    if (intakeMessage) {
+      await onSend(intakeMessage);
+      sessionStorage.removeItem("clientIntakeMessage");
+    }
+  }
+
+  useEffect(() => {
+    handleIntakeFormSubmit();
+  }, []);
+
   // Send message to chatbot, get reply, and update chat list
-  async function onSend() {
+  async function onSend(intakeMessage) {
     let newChatList = [...chatList];
-    const userChat = { text: message, sender: "user" };
+    const userChat = { text: intakeMessage || message, sender: "user" };
     newChatList = [...newChatList, userChat];
     setChatList(newChatList);
     setMessage("");
 
     setIsTyping(true);
-    const aiReply = await getChatGPTReply(message);
+    const aiReply = await getChatGPTReply(intakeMessage || message);
     const peerChat = { text: aiReply, sender: "peer" };
     newChatList = [...newChatList, peerChat];
     setChatList(newChatList);
