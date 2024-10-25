@@ -1,7 +1,7 @@
 .chat-interface {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 18px - 73px);
+  height: calc(100vh - 108px);
   width: 100%;
 }
 
@@ -16,7 +16,7 @@
 
 .message {
   border-radius: 16px;
-  max-width: 50%;
+  max-width: 60%;
   width: fit-content;
   padding: 7px;
   padding-left: 10px;
@@ -28,16 +28,18 @@
   text-wrap: break-word;
   overflow-wrap: break-word;
   font-size: 18px;
+  white-space: pre-line;
 }
 
 .peer {
-  background-color: rgb(229, 229, 229);
+  background-color: rgb(236, 236, 236);
   margin-right: auto;
   align-self: flex-start;
 }
 
 .user {
-  background-color: rgb(222, 107, 126);
+  color: white;
+  background-color: rgb(214, 103, 121);
   margin-left: auto;
   align-self: flex-end;
 }
@@ -57,17 +59,8 @@
 }
 
 .input-panel input {
-  min-width: 70px;
-  font-size: 18px;
-  background-color: white;
   flex-grow: 1;
-  padding: 10px;
   box-sizing: border-box;
-  border-radius: 30px;
-  outline: none;
-  border: none;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 .input-panel button {
@@ -77,9 +70,31 @@
 .disabled {
   background-color: rgb(196, 196, 196);
   cursor: not-allowed;
+  color: rgb(80, 80, 80);
 }
 
 .disabled:hover {
   background-color: rgb(196, 196, 196);
   transform: none;
+}
+
+.spinner {
+  display: flex;
+  margin-left: 8px;
+  margin-top: 2px;
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.not-typing {
+  display: none;
+}
+
+.typing {
+  display: flex;
 }

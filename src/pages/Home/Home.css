@@ -5,3 +5,29 @@ span {
   font-size: 50px;
   color: black;
 }
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 300px);
+}
+
+.home-content h1 {
+  margin-left: 16px;
+}
+
+.home-content span {
+  font-size: 20px;
+  text-align: center;
+}
+
+.home-button {
+  margin-top: 20px;
+}
+
+.home-icon {
+  margin-right: 10px;
+  margin-left: 4px;
+}

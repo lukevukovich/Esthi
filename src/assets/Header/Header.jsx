@@ -10,6 +10,7 @@ export default function Header() {
     <div className="header">
       <div className="header-box">
         <h1
+          style={{ fontSize: "30px" }}
           onClick={() => {
             navigate("/");
           }}

@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import "./ChatInterface.css";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function ChatInterface({
   chatList,
   message,
   setMessage,
   onSend,
+  isTyping,
 }) {
   const inputRef = useRef(null);
   const sendRef = useRef(null);
@@ -27,6 +29,14 @@ export default function ChatInterface({
     window.scrollTo(0, document.body.scrollHeight);
   }, [chatList]);
 
+  useEffect(() => {
+    if (isTyping) {
+      inputRef.current.disabled = true;
+    } else {
+      inputRef.current.disabled = false;
+    }
+  }, [isTyping]);
+
   return (
     <div className="chat-interface">
       <div className="message-panel">
@@ -36,6 +46,12 @@ export default function ChatInterface({
               {chat.text}
             </span>
           ))}
+          <span
+            className={`message peer ${isTyping ? "typing" : "not-typing"}`}
+          >
+            esthi AI is typing{" "}
+            <FontAwesomeIcon className="spinner" icon={faSpinner} />
+          </span>
         </div>
       </div>
       <div className="input-panel">
@@ -47,19 +63,19 @@ export default function ChatInterface({
           onChange={(e) => {
             setMessage(e.target.value);
           }}
-          onKeyDown={(e) => {
+          onKeyDown={async (e) => {
             if (e.key === "Enter" && message) {
-              onSend();
+              await onSend();
               inputRef.current.blur();
             }
           }}
         />
         <button
-        className={enabled ? "enabled" : "disabled"}
+          className={enabled ? "enabled" : "disabled"}
           ref={sendRef}
-          onClick={() => {
+          onClick={async () => {
             if (message) {
-              onSend();
+              await onSend();
               inputRef.current.blur();
             }
           }}
