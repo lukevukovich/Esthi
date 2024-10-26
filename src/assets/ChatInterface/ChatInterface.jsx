@@ -13,6 +13,7 @@ export default function ChatInterface({
 }) {
   const inputRef = useRef(null);
   const sendRef = useRef(null);
+  const messagesRef = useRef(null);
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function ChatInterface({
   return (
     <div className="chat-interface">
       <div className="message-panel">
-        <div className="message-list">
+        <div className="message-list" ref={messagesRef}>
           {chatList.map((chat, index) => (
             <span key={index} className={`message ${chat.sender}`}>
               {chat.text}

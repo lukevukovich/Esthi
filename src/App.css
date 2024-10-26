@@ -58,9 +58,9 @@ button:active {
 
 h1 {
   font-family: "Playwrite GB S", cursive;
-  font-display: swap;
   margin: 0px;
   margin-bottom: 3px;
   margin-right: 4px;
   transition: transform 0.2s;
+  font-weight: normal;
 }

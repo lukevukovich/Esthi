@@ -1,13 +1,13 @@
 const CHAT_WITH_GPT_API = "https://chatwithgpt-xhhcyiga7q-uc.a.run.app";
 
 // Fetch a reply from ChatGPT
-export async function getChatGPTReply(userMessage) {
+export async function getChatGPTReply(chatHistory) {
   const response = await fetch(CHAT_WITH_GPT_API, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ message: userMessage }),
+    body: JSON.stringify({ messages: chatHistory }),
   });
 
   if (!response.ok) {

@@ -4,7 +4,7 @@
   align-items: center;
   position: sticky;
   width: 100%;
-  top: 5px;
+  top: 8px;
   z-index: 1000;
   margin-bottom: 8px;
 }
@@ -14,12 +14,16 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-color: rgb(207, 142, 133);
+  background-color: rgb(194, 133, 125);
   border-radius: 40px;
-  margin-top: 10px;
+  margin-top: 8px;
   padding: 10px;
   padding-left: 20px;
   padding-right: 15px;
+}
+
+.header h1 {
+  margin-right: 0px;
 }
 
 .header h1:hover {

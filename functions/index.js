@@ -16,21 +16,14 @@ exports.chatWithGPT = onRequest(
       const apiKey = await CHATGPT_API_KEY.value();
 
       // Extract user message from the request body
-      const userMessage = req.body.message;
+      const { messages } = req.body;
 
       // Configure the OpenAI API request
       const response = await axios.post(
         CHATGPT_URL,
         {
           model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "system",
-              content:
-                "You are a world-renowned esthetician with extensive expertise in skincare, skin conditions, treatment techniques, and product ingredients. Your audience consists of trained estheticians seeking advanced insights, professional guidance, and recommendations to refine their practice. Provide detailed, accurate answers that reflect current best practices in the field of esthetics.",
-            },
-            { role: "user", content: userMessage },
-          ],
+          messages: messages,
         },
         {
           headers: {

@@ -3,7 +3,7 @@ import Header from "../../assets/Header/Header";
 import { intakeFormFields } from "../../utils/IntakeFormFields";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function IntakeForm() {
@@ -15,10 +15,9 @@ export default function IntakeForm() {
     e.preventDefault();
 
     const formData = new FormData(form.current);
-    console.log("Form data:", formData);
 
     let formText =
-      "This is a esthetician client intake form. Please provide any feedback, insight, and suggestions based on information provided.\n\n";
+      "This is an esthetician client intake form. Please provide any feedback, insight, and suggestions based on the information provided.\n\n";
     for (const [key, value] of formData.entries()) {
       if (value) {
         formText += `${key}: ${value}\n`;
@@ -28,6 +27,10 @@ export default function IntakeForm() {
     sessionStorage.setItem("clientIntakeMessage", formText);
     navigate("/chat");
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="intake-page">
