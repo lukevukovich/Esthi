@@ -43,12 +43,37 @@ export default function IntakeForm() {
               {section.data.map((field, index) => (
                 <div key={index} className="intake-field">
                   <label className="field-label">{field.label}</label>
-                  <input
-                    type={field.type}
-                    name={field.label}
-                    placeholder={"Enter " + field.label}
-                    required={field.required}
-                  />
+                  <div className="options-container">
+                    {field.type === "checkbox" || field.type === "radio" ? (
+                      field.options.map((option, optIndex) => (
+                        <div key={optIndex} className="option-item">
+                          <input
+                            type={field.type}
+                            name={field.label}
+                            value={option}
+                            required={field.required}
+                          />
+                          <label>{option}</label>
+                        </div>
+                      ))
+                    ) : field.type === "select" ? (
+                      <select name={field.label} required={field.required}>
+                        <option value="" className="select-default">{`Select ${field.label}`}</option>
+                        {field.options.map((option, optIndex) => (
+                          <option key={optIndex} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        type={field.type}
+                        name={field.label}
+                        placeholder={"Enter " + field.label}
+                        required={field.required}
+                      />
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
