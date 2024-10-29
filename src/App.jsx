@@ -9,7 +9,8 @@ import {
 import RootLayout from "./utils/RootLayout";
 import Home from "./pages/Home/Home";
 import Chat from "./pages/Chat/Chat";
-import IntakeForm from "./pages/IntakeForm/IntakeForm";
+import ClientIntakeForm from "./pages/ClientIntakeForm/ClientIntakeForm";
+import TreatmentRecord from "./pages/TreatmentRecord/TreatmentRecord";
 import "./App.css";
 
 // Router and routes
@@ -17,8 +18,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
-      <Route path="intake" element={<IntakeForm />} />
-      <Route path="chat" element={<Chat />} />
+      <Route path="client-intake-form" element={<ClientIntakeForm />} />
+      <Route path="treatment-record" element={<TreatmentRecord />} />
+      <Route path="ai-chat" element={<Chat />} />
     </Route>
   )
 );

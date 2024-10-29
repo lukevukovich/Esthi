@@ -1,31 +1,30 @@
 import "./IntakeForm.css";
-import Header from "../../assets/Header/Header";
-import { intakeFormFields } from "../../utils/IntakeFormFields";
+import Header from "../Header/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function IntakeForm() {
+export default function IntakeForm({ intakeFormConfig, formType }) {
   const navigate = useNavigate();
 
   const form = useRef(null);
+  const selectRef = useRef(null);
 
   function handleSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(form.current);
 
-    let formText =
-      "This is an esthetician client intake form. Please provide any feedback, insight, and suggestions based on the information provided.\n\n";
+    let formText = `This is an esthetician ${formType}. Please provide any feedback, insight, and suggestions based on the information provided.\n\n`;
     for (const [key, value] of formData.entries()) {
       if (value) {
         formText += `${key}: ${value}\n`;
       }
     }
 
-    sessionStorage.setItem("clientIntakeMessage", formText);
-    navigate("/chat");
+    sessionStorage.setItem("intakeMessage", formText);
+    navigate("/ai-chat");
   }
 
   useEffect(() => {
@@ -33,11 +32,11 @@ export default function IntakeForm() {
   }, []);
 
   return (
-    <div className="intake-page">
+    <div>
       <Header />
       <div className="intake-content">
         <form className="intake-form" ref={form} onSubmit={handleSubmit}>
-          {intakeFormFields.map((section, index) => (
+          {intakeFormConfig.map((section, index) => (
             <div key={index} className="intake-section">
               <label className="section-label">{section.category}</label>
               {section.data.map((field, index) => (
@@ -57,8 +56,11 @@ export default function IntakeForm() {
                         </div>
                       ))
                     ) : field.type === "select" ? (
-                      <select name={field.label} required={field.required}>
-                        <option value="" className="select-default">{`Select ${field.label}`}</option>
+                      <select name={field.label} required={field.required} ref={selectRef}>
+                        <option value="">
+                          {`${field.label.includes("?") ? "" : "Select "}` +
+                            field.label}
+                        </option>
                         {field.options.map((option, optIndex) => (
                           <option key={optIndex} value={option}>
                             {option}
@@ -69,7 +71,9 @@ export default function IntakeForm() {
                       <input
                         type={field.type}
                         name={field.label}
-                        placeholder={"Enter " + field.label}
+                        placeholder={
+                          `${field.label.includes("?") ? "" : "Enter "}` + field.label
+                        }
                         required={field.required}
                       />
                     )}

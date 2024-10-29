@@ -1,6 +1,10 @@
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlignLeft, faComments } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAlignLeft,
+  faComments,
+  faClipboard,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
@@ -19,14 +23,21 @@ export default function Header() {
         </h1>
         <button
           onClick={() => {
-            navigate("/intake");
+            navigate("/client-intake-form");
           }}
         >
           <FontAwesomeIcon icon={faAlignLeft} width={"20px"} />
         </button>
         <button
           onClick={() => {
-            navigate("/chat");
+            navigate("/treatment-record");
+          }}
+        >
+          <FontAwesomeIcon icon={faClipboard} width={"20px"} />
+        </button>
+        <button
+          onClick={() => {
+            navigate("/ai-chat");
           }}
         >
           <FontAwesomeIcon icon={faComments} width={"20px"} />

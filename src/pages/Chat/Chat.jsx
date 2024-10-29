@@ -36,10 +36,10 @@ export default function Chat() {
       },
     ]);
 
-    const intakeMessage = sessionStorage.getItem("clientIntakeMessage");
+    const intakeMessage = sessionStorage.getItem("intakeMessage");
     if (intakeMessage) {
       await onSend(intakeMessage);
-      sessionStorage.removeItem("clientIntakeMessage");
+      sessionStorage.removeItem("intakeMessage");
     }
   }
 

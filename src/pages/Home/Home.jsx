@@ -1,6 +1,10 @@
 import "./Home.css";
 import Header from "../../assets/Header/Header";
-import { faAlignLeft, faComments } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAlignLeft,
+  faComments,
+  faClipboard,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +20,7 @@ export default function Home() {
         <button
           className="home-button"
           onClick={() => {
-            navigate("/intake");
+            navigate("/client-intake-form");
           }}
         >
           <FontAwesomeIcon icon={faAlignLeft} className="home-icon" />
@@ -25,7 +29,16 @@ export default function Home() {
         <button
           className="home-button"
           onClick={() => {
-            navigate("/chat");
+            navigate("/treatment-record");
+          }}
+        >
+          <FontAwesomeIcon icon={faClipboard} className="home-icon" />
+          Treatment record
+        </button>
+        <button
+          className="home-button"
+          onClick={() => {
+            navigate("/ai-chat");
           }}
         >
           <FontAwesomeIcon icon={faComments} className="home-icon" />
