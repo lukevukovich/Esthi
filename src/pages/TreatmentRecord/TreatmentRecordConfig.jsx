@@ -17,14 +17,14 @@ export const treatmentRecordConfig = [
         type: "select",
         label: "Medical History Reviewed?",
         options: ["Yes", "No"],
-        required: true,
+        required: false,
       },
       {
         field: "informedConsentSigned",
         type: "select",
         label: "Informed Consent Signed?",
         options: ["Yes", "No"],
-        required: true,
+        required: false,
       },
       {
         field: "skinAnalysis",
