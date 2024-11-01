@@ -31,3 +31,10 @@ span {
   margin-right: 10px;
   margin-left: 4px;
 }
+
+@media (max-height: 625px) {
+  .home-content {
+    top: 50px;
+    height: auto;
+  }
+}

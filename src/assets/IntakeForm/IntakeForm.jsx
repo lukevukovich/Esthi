@@ -56,11 +56,19 @@ export default function IntakeForm({ intakeFormConfig, formType }) {
                         </div>
                       ))
                     ) : field.type === "select" ? (
-                      <select name={field.label} required={field.required} ref={selectRef}>
-                        <option value="">
-                          {`${field.label.includes("?") ? "" : "Select "}` +
-                            field.label}
-                        </option>
+                      <select
+                        name={field.label}
+                        required={field.required}
+                        ref={selectRef}
+                        onChange={(e) => {
+                          if (e.target.value !== "") {
+                            e.target.style.color = "black";
+                          } else {
+                            e.target.style.color = "gray";
+                          }
+                        }}
+                      >
+                        <option value="">Select an option</option>
                         {field.options.map((option, optIndex) => (
                           <option key={optIndex} value={option}>
                             {option}
@@ -72,9 +80,12 @@ export default function IntakeForm({ intakeFormConfig, formType }) {
                         type={field.type}
                         name={field.label}
                         placeholder={
-                          `${field.label.includes("?") ? "" : "Enter "}` + field.label
+                          `${field.label.includes("?") ? "" : "Enter "}` +
+                          field.label
                         }
                         required={field.required}
+                        max={field.max}
+                        min={field.min}
                       />
                     )}
                   </div>

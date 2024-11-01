@@ -51,6 +51,11 @@
   border: none;
   padding-left: 15px;
   padding-right: 15px;
+  color: gray;
+}
+
+.intake-field select option {
+  color: black;
 }
 
 .field-label {

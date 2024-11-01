@@ -1,3 +1,5 @@
+import { faMinimize } from "@fortawesome/free-solid-svg-icons";
+
 // Fields used for treatment record form
 export const treatmentRecordConfig = [
   {
@@ -86,9 +88,11 @@ export const treatmentRecordConfig = [
       },
       {
         field: "heatLevel",
-        type: "text",
-        label: "Heat Level (1-10)",
+        type: "number",
+        label: "Heat Level",
         required: false,
+        max: 10,
+        min: 1,
       },
       {
         field: "extractions",
@@ -137,7 +141,7 @@ export const treatmentRecordConfig = [
       {
         field: "otherModalitiesOther",
         type: "text",
-        label: "Other Modalities Other",
+        label: "Other Modalities (Other)",
         required: false,
       },
       {

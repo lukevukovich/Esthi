@@ -13,7 +13,7 @@ export default function Chat() {
     },
   ]);
 
-  const chatHistoryLength = 10;
+  const chatHistoryLength = 20;
 
   // Single session chat history for the esthetician
   const [chatHistory, setChatHistory] = useState([
