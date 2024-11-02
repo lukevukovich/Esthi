@@ -4,9 +4,11 @@ import {
   faAlignLeft,
   faComments,
   faClipboard,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -43,6 +45,15 @@ export default function Home() {
         >
           <FontAwesomeIcon icon={faComments} className="home-icon" />
           esthi AI chat
+        </button>
+        <button
+          className="home-button"
+          onClick={() => {
+            navigate("/profile");
+          }}
+        >
+          <FontAwesomeIcon icon={faUser} className="home-icon" />
+          Profile
         </button>
       </div>
     </div>

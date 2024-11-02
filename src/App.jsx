@@ -11,6 +11,7 @@ import Home from "./pages/Home/Home";
 import Chat from "./pages/Chat/Chat";
 import ClientIntakeForm from "./pages/ClientIntakeForm/ClientIntakeForm";
 import TreatmentRecord from "./pages/TreatmentRecord/TreatmentRecord";
+import Profile from "./pages/Profile/Profile";
 import "./App.css";
 
 // Router and routes
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="client-intake-form" element={<ClientIntakeForm />} />
       <Route path="treatment-record" element={<TreatmentRecord />} />
       <Route path="ai-chat" element={<Chat />} />
+      <Route path="profile" element={<Profile />} />
     </Route>
   )
 );

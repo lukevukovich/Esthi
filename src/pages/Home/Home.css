@@ -11,7 +11,7 @@ span {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 300px);
+  height: calc(100vh - 220px);
 }
 
 .home-content h1 {
@@ -32,7 +32,7 @@ span {
   margin-left: 4px;
 }
 
-@media (max-height: 625px) {
+@media (max-height: 608px) {
   .home-content {
     top: 50px;
     height: auto;

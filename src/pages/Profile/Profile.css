@@ -1,0 +1,77 @@
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.profile-label {
+  font-family: "Playwrite GB S", cursive;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-icon {
+  margin-right: 10px;
+  margin-left: 4px;
+}
+
+.profile-user {
+  font-size: 18px;
+  color: rgb(88, 22, 33);
+  background-color: rgb(214, 103, 121);
+  width: fit-content;
+  padding: 10px;
+  padding-left: 14px;
+  padding-right: 14px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+  text-wrap: nowrap;
+  display: none;
+}
+
+.profile-username {
+  font-size: 18px;
+  color: white;
+  margin-left: 5px;
+  font-weight: bold;
+  text-wrap: nowrap;
+  width: fit-content;
+}
+
+.sign-in {
+  display: none;
+}
+
+.sign-out {
+  display: none;
+}
+
+.treatment-records {
+  display: none;
+}
+
+.no-records {
+  opacity: 25%;
+  font-size: 18px;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  width: fit-content;
+  padding: 10px;
+  padding-left: 14px;
+  padding-right: 14px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+  text-wrap: nowrap;
+  display: none;
+}

@@ -4,6 +4,7 @@ import {
   faAlignLeft,
   faComments,
   faClipboard,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
@@ -41,6 +42,13 @@ export default function Header() {
           }}
         >
           <FontAwesomeIcon icon={faComments} width={"20px"} />
+        </button>
+        <button
+          onClick={() => {
+            navigate("/profile");
+          }}
+        >
+          <FontAwesomeIcon icon={faUser} width={"20px"} />
         </button>
       </div>
     </div>

@@ -36,7 +36,7 @@
   transform: scale(0.98);
 }
 
-@media (max-width: 300px) {
+@media (max-width: 370px) {
   .header {
     transform: scale(0.75);
   }
