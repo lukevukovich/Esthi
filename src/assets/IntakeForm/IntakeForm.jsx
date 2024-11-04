@@ -1,4 +1,5 @@
 import "./IntakeForm.css";
+import "../../App.css";
 import Header from "../Header/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
@@ -32,7 +33,7 @@ export default function IntakeForm({ intakeFormConfig, formType }) {
   }, []);
 
   return (
-    <div>
+    <div className="intake">
       <Header />
       <div className="intake-content">
         <form className="intake-form" ref={form} onSubmit={handleSubmit}>
@@ -94,7 +95,7 @@ export default function IntakeForm({ intakeFormConfig, formType }) {
             </div>
           ))}
           <button>
-            <FontAwesomeIcon icon={faComments} className="intake-icon" />
+            <FontAwesomeIcon icon={faComments} className="button-icon" />
             Submit to esthi AI chat
           </button>
         </form>

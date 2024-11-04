@@ -3,7 +3,7 @@ import { clientIntakeFormConfig } from "./ClientIntakeFormConfig";
 
 export default function ClientIntakeForm() {
   return (
-    <div className="client-intake-form">
+    <div className="client-intake-form-page">
       <IntakeForm
         intakeFormConfig={clientIntakeFormConfig}
         formType={"client intake form"}

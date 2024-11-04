@@ -1,22 +1,23 @@
 import "./Profile.css";
+import "../../App.css";
 import Header from "../../assets/Header/Header";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { checkSignInStatus, signIn, signOut } from "../../utils/Auth";
 
 export default function Profile() {
-  // Username text
+  // States
+  const [signedIn, setSignedIn] = useState(false);
+  const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
-
-  // Saved treatment records
   const [treatmentRecords, setTreatmentRecords] = useState([]);
 
   // Refs
   const signInRef = useRef(null);
   const signOutRef = useRef(null);
   const userTextRef = useRef(null);
-  const treatmentRecordsRef = useRef(null);
+  const noRecordsSignInRef = useRef(null);
   const noRecordsRef = useRef(null);
 
   // Handle sign in auth and element display
@@ -42,27 +43,61 @@ export default function Profile() {
     const { isSignedIn, user } = await checkSignInStatus();
 
     if (isSignedIn) {
+      setSignedIn(true);
+      setUser(user);
+    } else {
+      setSignedIn(false);
+      setUser(null);
+    }
+  }
+
+  // Handle element display based on sign in status
+  useEffect(() => {
+    if (signedIn) {
       signInRef.current.style.display = "none";
       signOutRef.current.style.display = "flex";
       userTextRef.current.style.display = "flex";
-      treatmentRecordsRef.current.style.display = "flex";
-      setUsername(user.email.split("@")[0]);
+      noRecordsSignInRef.current.style.display = "none";
+      if (treatmentRecords.length === 0) {
+        noRecordsRef.current.style.display = "flex";
+      }
+      setUser(user);
     } else {
       signInRef.current.style.display = "flex";
       signOutRef.current.style.display = "none";
       userTextRef.current.style.display = "none";
-      treatmentRecordsRef.current.style.display = "none";
+      noRecordsRef.current.style.display = "none";
+      noRecordsSignInRef.current.style.display = "flex";
+      setUser(null);
     }
-  }
+  }, [signedIn]);
+
+  // Handle element display based on user
+  useEffect(() => {
+    if (user) {
+      let newUsername = user.email.split("@")[0].toLowerCase();
+      if (newUsername.length > 24) {
+        newUsername = newUsername.slice(0, 24) + "...";
+      }
+      setUsername(newUsername);
+    } else {
+      setUsername("");
+    }
+  }, [user]);
+
+  // Handle element display based on treatment records
+  useEffect(() => {
+    if (treatmentRecords.length > 0) {
+      noRecordsRef.current.style.display = "none";
+    } else {
+      if (signedIn) {
+        noRecordsRef.current.style.display = "flex";
+      }
+    }
+  }, [treatmentRecords]);
 
   useEffect(() => {
     handleAuth();
-
-    // Try to fetch treatment records
-
-    if (treatmentRecords.length === 0) {
-      noRecordsRef.current.style.display = "flex";
-    }
   }, []);
 
   return (
@@ -79,14 +114,18 @@ export default function Profile() {
             }}
           >
             <FontAwesomeIcon
-              className="profile-icon"
+              className="button-icon"
               icon={faUser}
             ></FontAwesomeIcon>
             Sign in
           </button>
-          <span className="profile-user" ref={userTextRef}>
-            Glowing in as <span className="profile-username">{username}</span>
-          </span>
+          <div className="profile-user" ref={userTextRef}>
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              className="button-icon"
+            ></FontAwesomeIcon>
+            <span className="profile-username">{username}</span>
+          </div>
           <button
             className="profile-button sign-out"
             ref={signOutRef}
@@ -95,17 +134,17 @@ export default function Profile() {
             }}
           >
             <FontAwesomeIcon
-              className="profile-icon"
+              className="button-icon"
               icon={faUser}
             ></FontAwesomeIcon>
             Sign out
           </button>
         </div>
-        <div
-          className="profile-section treatment-records"
-          ref={treatmentRecordsRef}
-        >
+        <div className="profile-section treatment-records">
           <label className="profile-label">Treatment Records</label>
+          <label className="no-records" ref={noRecordsSignInRef}>
+            Sign in to save treatment records
+          </label>
           <label className="no-records" ref={noRecordsRef}>
             No saved treamtent records
           </label>

@@ -21,11 +21,6 @@
   margin-bottom: 20px;
 }
 
-.profile-icon {
-  margin-right: 10px;
-  margin-left: 4px;
-}
-
 .profile-user {
   font-size: 18px;
   color: rgb(88, 22, 33);
@@ -38,15 +33,17 @@
   margin-bottom: 20px;
   text-wrap: nowrap;
   display: none;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
 }
 
 .profile-username {
   font-size: 18px;
-  color: white;
-  margin-left: 5px;
-  font-weight: bold;
+  color: white;  font-weight: bold;
   text-wrap: nowrap;
   width: fit-content;
+  margin-bottom: 1px;
 }
 
 .sign-in {
@@ -54,10 +51,6 @@
 }
 
 .sign-out {
-  display: none;
-}
-
-.treatment-records {
   display: none;
 }
 
@@ -74,4 +67,5 @@
   margin-bottom: 20px;
   text-wrap: nowrap;
   display: none;
+  overflow-x: hidden;
 }

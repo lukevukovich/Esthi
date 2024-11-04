@@ -1,4 +1,5 @@
 import "./Home.css";
+import "../../App.css";
 import Header from "../../assets/Header/Header";
 import {
   faAlignLeft,
@@ -8,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function Home() {
             navigate("/client-intake-form");
           }}
         >
-          <FontAwesomeIcon icon={faAlignLeft} className="home-icon" />
+          <FontAwesomeIcon icon={faAlignLeft} className="button-icon" />
           Client intake form
         </button>
         <button
@@ -34,7 +34,7 @@ export default function Home() {
             navigate("/treatment-record");
           }}
         >
-          <FontAwesomeIcon icon={faClipboard} className="home-icon" />
+          <FontAwesomeIcon icon={faClipboard} className="button-icon" />
           Treatment record
         </button>
         <button
@@ -43,7 +43,7 @@ export default function Home() {
             navigate("/ai-chat");
           }}
         >
-          <FontAwesomeIcon icon={faComments} className="home-icon" />
+          <FontAwesomeIcon icon={faComments} className="button-icon" />
           esthi AI chat
         </button>
         <button
@@ -52,7 +52,7 @@ export default function Home() {
             navigate("/profile");
           }}
         >
-          <FontAwesomeIcon icon={faUser} className="home-icon" />
+          <FontAwesomeIcon icon={faUser} className="button-icon" />
           Profile
         </button>
       </div>

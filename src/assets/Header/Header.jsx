@@ -4,12 +4,31 @@ import {
   faAlignLeft,
   faComments,
   faClipboard,
-  faUser
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 export default function Header() {
   const navigate = useNavigate();
+
+  // Reverse the order ref and string
+  const buttonRefs = {
+    "/client-intake-form": useRef(null),
+    "/treatment-record": useRef(null),
+    "/ai-chat": useRef(null),
+    "/profile": useRef(null),
+  };
+
+  useEffect(() => {
+    for (const [key, button] of Object.entries(buttonRefs)) {
+      if (button.current) {
+        if (key === window.location.pathname) {
+          button.current.classList.add("current-page");
+        }
+      }
+    }
+  }, []);
 
   return (
     <div className="header">
@@ -26,6 +45,7 @@ export default function Header() {
           onClick={() => {
             navigate("/client-intake-form");
           }}
+          ref={buttonRefs["/client-intake-form"]}
         >
           <FontAwesomeIcon icon={faAlignLeft} width={"20px"} />
         </button>
@@ -33,6 +53,7 @@ export default function Header() {
           onClick={() => {
             navigate("/treatment-record");
           }}
+          ref={buttonRefs["/treatment-record"]}
         >
           <FontAwesomeIcon icon={faClipboard} width={"20px"} />
         </button>
@@ -40,6 +61,7 @@ export default function Header() {
           onClick={() => {
             navigate("/ai-chat");
           }}
+          ref={buttonRefs["/ai-chat"]}
         >
           <FontAwesomeIcon icon={faComments} width={"20px"} />
         </button>
@@ -47,6 +69,7 @@ export default function Header() {
           onClick={() => {
             navigate("/profile");
           }}
+          ref={buttonRefs["/profile"]}
         >
           <FontAwesomeIcon icon={faUser} width={"20px"} />
         </button>

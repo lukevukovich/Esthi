@@ -168,6 +168,13 @@ export const clientIntakeFormConfig = [
         ],
       },
       {
+        field: "pregnant",
+        type: "select",
+        label: "Currently Pregnant or Breastfeeding?",
+        required: false,
+        options: ["Yes", "No"],
+      },
+      {
         field: "more info",
         type: "text",
         label: "More Information",

@@ -4,6 +4,7 @@ span {
   align-items: center;
   font-size: 50px;
   color: black;
+  text-wrap: nowrap;
 }
 
 .home-content {
@@ -25,11 +26,6 @@ span {
 
 .home-button {
   margin-top: 20px;
-}
-
-.home-icon {
-  margin-right: 10px;
-  margin-left: 4px;
 }
 
 @media (max-height: 608px) {

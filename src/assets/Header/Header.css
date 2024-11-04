@@ -8,6 +8,11 @@
   z-index: 1000;
   margin-bottom: 8px;
   transition: transform 0.2s;
+  overflow-x: hidden;
+}
+
+.header button {
+  margin-left: 10px;
 }
 
 .header-box {
@@ -40,4 +45,9 @@
   .header {
     transform: scale(0.75);
   }
+}
+
+.current-page {
+  background-color: rgb(96, 48, 55);
+  color: white
 }

@@ -40,12 +40,12 @@ button {
   padding: 10px;
   padding-left: 14px;
   padding-right: 14px;
-  margin-left: 10px;
   border-radius: 30px;
   outline: none;
   border: none;
   transition: transform 0.2s;
   cursor: pointer;
+  text-wrap: nowrap;
 }
 
 button:hover {
@@ -56,6 +56,12 @@ button:active {
   transform: scale(0.98);
 }
 
+.button-icon {
+  margin-right: 10px;
+  margin-left: 3px;  
+  margin-top: 1px;
+}
+
 h1 {
   font-family: "Playwrite GB S", cursive;
   margin: 0px;
@@ -63,4 +69,5 @@ h1 {
   margin-right: 4px;
   transition: transform 0.2s;
   font-weight: normal;
+  text-wrap: nowrap;
 }
