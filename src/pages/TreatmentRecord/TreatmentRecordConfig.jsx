@@ -6,7 +6,7 @@ export const treatmentRecordConfig = [
     category: "Treatment Record",
     data: [
       { field: "name", type: "text", label: "Client Name", required: true },
-      { field: "date", type: "date", label: "Date", required: false },
+      { field: "date", type: "date", label: "Date", required: true },
       { field: "concerns", type: "text", label: "Concerns", required: false },
       {
         field: "desiredOutcome",

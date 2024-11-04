@@ -3,8 +3,9 @@ span {
   justify-content: center;
   align-items: center;
   font-size: 50px;
-  color: black;
-  text-wrap: nowrap;
+  text-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .home-content {

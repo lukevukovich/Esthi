@@ -45,7 +45,7 @@ button {
   border: none;
   transition: transform 0.2s;
   cursor: pointer;
-  text-wrap: nowrap;
+  text-wrap: break-word;
 }
 
 button:hover {

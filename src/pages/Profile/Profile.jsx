@@ -76,9 +76,6 @@ export default function Profile() {
   useEffect(() => {
     if (user) {
       let newUsername = user.email.split("@")[0].toLowerCase();
-      if (newUsername.length > 24) {
-        newUsername = newUsername.slice(0, 24) + "...";
-      }
       setUsername(newUsername);
     } else {
       setUsername("");

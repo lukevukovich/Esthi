@@ -7,6 +7,7 @@ export default function TreatmentRecord() {
       <IntakeForm
         intakeFormConfig={treatmentRecordConfig}
         formType={"treatment record"}
+        saveButton={true}
       />
     </div>
   );

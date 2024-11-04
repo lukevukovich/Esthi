@@ -25,25 +25,24 @@
   font-size: 18px;
   color: rgb(88, 22, 33);
   background-color: rgb(214, 103, 121);
-  width: fit-content;
   padding: 10px;
   padding-left: 14px;
   padding-right: 14px;
   border-radius: 30px;
   margin-bottom: 20px;
-  text-wrap: nowrap;
   display: none;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
 }
 
 .profile-username {
+  max-width: 225px;
   font-size: 18px;
-  color: white;  font-weight: bold;
-  text-wrap: nowrap;
-  width: fit-content;
+  color: white;
+  font-weight: bold;
   margin-bottom: 1px;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .sign-in {
@@ -65,7 +64,8 @@
   padding-right: 14px;
   border-radius: 30px;
   margin-bottom: 20px;
-  text-wrap: nowrap;
+  text-wrap: break-word;
   display: none;
   overflow-x: hidden;
+  text-align: center;
 }

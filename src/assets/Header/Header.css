@@ -8,7 +8,6 @@
   z-index: 1000;
   margin-bottom: 8px;
   transition: transform 0.2s;
-  overflow-x: hidden;
 }
 
 .header button {
@@ -49,5 +48,21 @@
 
 .current-page {
   background-color: rgb(96, 48, 55);
-  color: white
+  color: white;
+}
+
+@media (max-width: 270px) {
+  .header {
+    width: 136%;
+    justify-self: center;
+  }
+  .header-box {
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
+  }
+
+  .header button {
+    display: none;
+  }
 }

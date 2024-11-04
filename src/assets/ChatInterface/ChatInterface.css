@@ -65,6 +65,7 @@
 
 .input-panel button {
   flex-shrink: 0;
+  margin-left: 10px;
 }
 
 .disabled {
