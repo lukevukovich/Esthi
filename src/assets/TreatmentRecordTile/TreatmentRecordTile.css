@@ -36,7 +36,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 }
 
 .delete {
@@ -47,4 +47,9 @@
   color: rgb(255, 255, 255);
   background-color: rgb(102, 64, 59);
   border-radius: 10px;
+}
+
+.record-date {
+  font-size: 16px !important;
+  margin-bottom: 1px;
 }

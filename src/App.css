@@ -24,7 +24,7 @@ input {
   flex-grow: 1;
   padding: 10px;
   box-sizing: border-box;
-  border-radius: 30px;
+  border-radius: 10px;
   outline: none;
   border: none;
   padding-left: 15px;
@@ -70,4 +70,17 @@ h1 {
   transition: transform 0.2s;
   font-weight: normal;
   text-wrap: nowrap;
+}
+
+.spinner {
+  display: flex;
+  margin-left: 8px;
+  margin-top: 2px;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
 }

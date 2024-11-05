@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./ChatInterface.css";
+import "../../App.css";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";

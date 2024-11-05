@@ -22,21 +22,23 @@ export default function TreatmentRecordTile({
     });
   }
 
-  async function deleteRecord() {
+  function deleteRecord() {
     try {
-      await saveTreatmentRecord(treatmentRecord);
+      saveTreatmentRecord(treatmentRecord);
       const newRecords = treatmentRecords.filter(
         (record) => record.recordId !== treatmentRecord.recordId
       );
       setTreatmentRecords(newRecords);
-      alert("Treatment record successfully deleted.");
-    } catch (error) {
-      alert("Error deleting treatment record. Please try again.");
-    }
+    } catch (error) {}
   }
 
   return (
-    <div className="treatment-record-tile">
+    <div
+      className="treatment-record-tile"
+      onClick={() => {
+        console.log(treatmentRecord);
+      }}
+    >
       <span className="record-name">
         <FontAwesomeIcon
           icon={faUserTag}
@@ -54,7 +56,8 @@ export default function TreatmentRecordTile({
         </span>
         <button
           className="delete"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             deleteRecord();
           }}
         >

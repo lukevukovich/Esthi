@@ -29,7 +29,7 @@
   padding-left: 14px;
   padding-right: 14px;
   border-radius: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   display: none;
   justify-content: center;
   align-items: center;
@@ -74,4 +74,20 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.loading-page {
+  z-index: 999;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: calc(100vh - 50px);
+  background-color: rgb(255, 177, 167);
+  font-size: 60px;
+  color: white;
 }

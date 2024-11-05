@@ -2,7 +2,11 @@ import "./IntakeForm.css";
 import "../../App.css";
 import Header from "../Header/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComments, faCloud } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComments,
+  faCloud,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { saveTreatmentRecord } from "../../utils/TreatmentRecordAPI";
@@ -15,22 +19,26 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
   const selectRef = useRef(null);
   const saveRef = useRef(null);
 
+  const [saving, setSaving] = useState(false);
+  const [saveIcon, setSaveIcon] = useState(faCloud);
+  const [saveText, setSaveText] = useState(`Save ${formType}`);
+
   const [signedIn, setSignedIn] = useState(false);
   const [lastClick, setLastClick] = useState(null);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (lastClick === "ai") {
-      handleAI();
+      await handleAI();
     } else if (lastClick === "save") {
-      handleSave();
+      await handleSave();
     }
 
     setLastClick(null);
   }
 
-  function handleAI() {
+  async function handleAI() {
     const formData = new FormData(form.current);
 
     let formText = `This is an esthetician ${formType}. Please provide any feedback, insight, and suggestions based on the information provided.\n\n`;
@@ -41,13 +49,13 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
     }
 
     if (signedIn) {
-      handleSave();
+      handleSave(false);
     }
     sessionStorage.setItem("intakeMessage", formText);
     navigate("/ai-chat");
   }
 
-  function handleSave() {
+  async function handleSave(navigateAfterSave) {
     const formData = new FormData(form.current);
     let data = { record: {} };
 
@@ -64,16 +72,34 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
     });
 
     try {
-      saveTreatmentRecord(data.record);
-      alert(
-        `${
-          formType.charAt(0).toUpperCase() + formType.slice(1)
-        } successfully saved.`
-      );
+      if (navigateAfterSave !== false) {
+        setSaving(true);
+        await saveTreatmentRecord(data.record);
+        setSaving(false);
+        navigate("/profile");
+      } else {
+        saveTreatmentRecord(data.record);
+      }
     } catch (error) {
-      alert(`Error saving ${formType}. Please try again.`);
+      setSaving(false);
     }
   }
+
+  useEffect(() => {
+    if (saveButton) {
+      if (saving) {
+        setSaveIcon(faSpinner);
+        setSaveText("Saving");
+        saveRef.current.disabled = true;
+        saveRef.current.style.paddingRight = "20px";
+      } else {
+        setSaveIcon(faCloud);
+        setSaveText(`Save ${formType}`);
+        saveRef.current.disabled = false;
+        saveRef.current.style.paddingRight = "14px";
+      }
+    }
+  }, [saving]);
 
   async function handleSignInLoad() {
     const { isSignedIn } = await checkSignInStatus();
@@ -176,10 +202,10 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
                 }}
               >
                 <FontAwesomeIcon
-                  icon={faCloud}
-                  className="button-icon"
+                  icon={saveIcon}
+                  className={`button-icon ${saving ? "spinner" : ""}`}
                 ></FontAwesomeIcon>
-                Save {formType}
+                {saveText}
               </button>
             ) : null}
           </div>

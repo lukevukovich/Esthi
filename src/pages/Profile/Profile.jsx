@@ -1,7 +1,7 @@
 import "./Profile.css";
 import "../../App.css";
 import Header from "../../assets/Header/Header";
-import { faUser, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faCheckCircle, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { checkSignInStatus, signIn, signOut } from "../../utils/Auth";
@@ -10,12 +10,14 @@ import { getTreatmentRecords } from "../../utils/TreatmentRecordAPI";
 
 export default function Profile() {
   // States
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(null);
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
   const [treatmentRecords, setTreatmentRecords] = useState([]);
+  const [loadingPage, setLoadingPage] = useState(true);
 
   // Refs
+  const loadingPageRef = useRef(null);
   const signInRef = useRef(null);
   const signOutRef = useRef(null);
   const userTextRef = useRef(null);
@@ -24,6 +26,7 @@ export default function Profile() {
 
   // Handle sign in auth and element display
   async function handleSignIn() {
+    setLoadingPage(true);
     const success = await signIn();
 
     if (success) {
@@ -42,6 +45,8 @@ export default function Profile() {
 
   // Handle element display based on sign in status
   async function handleAuth() {
+    setLoadingPage(true);
+
     const { isSignedIn, user } = await checkSignInStatus();
 
     if (isSignedIn) {
@@ -53,8 +58,7 @@ export default function Profile() {
     }
   }
 
-  // Handle element display based on sign in status
-  useEffect(() => {
+  async function handleSignedInChange() {
     if (signedIn) {
       signInRef.current.style.display = "none";
       signOutRef.current.style.display = "flex";
@@ -63,8 +67,7 @@ export default function Profile() {
       if (treatmentRecords.length === 0) {
         noRecordsRef.current.style.display = "flex";
       }
-      setUser(user);
-      loadTreatmentRecords();
+      await loadTreatmentRecords();
     } else {
       signInRef.current.style.display = "flex";
       signOutRef.current.style.display = "none";
@@ -74,6 +77,13 @@ export default function Profile() {
       setUser(null);
       setTreatmentRecords([]);
     }
+
+    setLoadingPage(false);
+  }
+
+  // Handle element display based on sign in status
+  useEffect(() => {
+    handleSignedInChange();
   }, [signedIn]);
 
   // Handle element display based on user
@@ -97,6 +107,14 @@ export default function Profile() {
     }
   }, [treatmentRecords]);
 
+  useEffect(() => {
+    if (loadingPage) {
+      loadingPageRef.current.style.display = "flex";
+    } else {
+      loadingPageRef.current.style.display = "none";
+    }
+  }, [loadingPage]);
+
   async function loadTreatmentRecords() {
     const records = await getTreatmentRecords();
     setTreatmentRecords(records);
@@ -108,6 +126,7 @@ export default function Profile() {
 
   return (
     <div className="profile-page">
+      <div className="loading-page" ref={loadingPageRef}><FontAwesomeIcon icon={faSpinner} className="button-icon spinner"></FontAwesomeIcon></div>
       <Header />
       <div className="profile-content">
         <div className="profile-section">

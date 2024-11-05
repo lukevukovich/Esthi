@@ -50,10 +50,9 @@
   flex-grow: 1;
   padding: 10px;
   box-sizing: border-box;
-  border-radius: 30px;
+  border-radius: 10px;
   outline: none;
   border: none;
-  padding-left: 15px;
   padding-right: 15px;
   color: gray;
 }
@@ -100,4 +99,6 @@
 
 .save-button {
   display: none;
+  align-self: center;
+  padding-right: 20px;
 }
