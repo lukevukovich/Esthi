@@ -7,9 +7,9 @@
   background-color: rgb(160, 103, 95);
   cursor: pointer;
   border-radius: 30px;
-  padding: 5px;
-  padding-right: 7px;
-  padding-bottom: 6px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding-left: 4px;
   transition: transform 0.2s;
 }
 
@@ -17,6 +17,8 @@
   font-size: 18px;
   color: white;
   margin-left: 10px;
+  text-wrap: nowrap;
+  justify-content: start;
 }
 
 .treatment-record-tile:hover {
@@ -39,11 +41,10 @@
 
 .delete {
   font-size: 12px;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 10px;
   margin-left: 10px;
-  margin-top: 1px;
-  color: rgb(88, 22, 33);
-  background-color: rgb(245, 153, 168);
+  margin-right: 0px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(102, 64, 59);
+  border-radius: 10px;
 }

@@ -5,13 +5,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments, faCloud } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { saveTreatmentRecord } from "../../utils/TreatmentRecordAPI";
+import { checkSignInStatus } from "../../utils/Auth";
 
 export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
   const navigate = useNavigate();
 
   const form = useRef(null);
   const selectRef = useRef(null);
+  const saveRef = useRef(null);
 
+  const [signedIn, setSignedIn] = useState(false);
   const [lastClick, setLastClick] = useState(null);
 
   function handleSubmit(e) {
@@ -36,6 +40,9 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
       }
     }
 
+    if (signedIn) {
+      handleSave();
+    }
     sessionStorage.setItem("intakeMessage", formText);
     navigate("/ai-chat");
   }
@@ -56,11 +63,37 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
       });
     });
 
-    console.log(data);
+    try {
+      saveTreatmentRecord(data.record);
+      alert(
+        `${
+          formType.charAt(0).toUpperCase() + formType.slice(1)
+        } successfully saved.`
+      );
+    } catch (error) {
+      alert(`Error saving ${formType}. Please try again.`);
+    }
+  }
+
+  async function handleSignInLoad() {
+    const { isSignedIn } = await checkSignInStatus();
+
+    if (isSignedIn) {
+      setSignedIn(true);
+    } else {
+      setSignedIn(false);
+    }
   }
 
   useEffect(() => {
+    if (signedIn && saveButton && saveRef.current) {
+      saveRef.current.style.display = "flex";
+    }
+  }, [signedIn]);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
+    handleSignInLoad();
   }, []);
 
   return (
@@ -136,6 +169,8 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
             </button>
             {saveButton ? (
               <button
+                className="save-button"
+                ref={saveRef}
                 onClick={() => {
                   setLastClick("save");
                 }}

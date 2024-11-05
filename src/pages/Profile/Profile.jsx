@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { checkSignInStatus, signIn, signOut } from "../../utils/Auth";
 import TreatmentRecordTile from "../../assets/TreatmentRecordTile/TreatmentRecordTile";
-import { records } from "../../../public/records";
+import { getTreatmentRecords } from "../../utils/TreatmentRecordAPI";
 
 export default function Profile() {
   // States
@@ -64,7 +64,7 @@ export default function Profile() {
         noRecordsRef.current.style.display = "flex";
       }
       setUser(user);
-      setTreatmentRecords(records);
+      loadTreatmentRecords();
     } else {
       signInRef.current.style.display = "flex";
       signOutRef.current.style.display = "none";
@@ -97,8 +97,12 @@ export default function Profile() {
     }
   }, [treatmentRecords]);
 
-  useEffect(() => {
+  async function loadTreatmentRecords() {
+    const records = await getTreatmentRecords();
     setTreatmentRecords(records);
+  }
+
+  useEffect(() => {
     handleAuth();
   }, []);
 
@@ -155,6 +159,8 @@ export default function Profile() {
               <TreatmentRecordTile
                 key={index}
                 treatmentRecord={record}
+                treatmentRecords={treatmentRecords}
+                setTreatmentRecords={setTreatmentRecords}
               ></TreatmentRecordTile>
             ))}
           </div>

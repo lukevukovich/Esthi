@@ -97,3 +97,7 @@
 .option-item label {
   font-size: 16px;
 }
+
+.save-button {
+  display: none;
+}
