@@ -1,0 +1,49 @@
+.treatment-record-tile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90vw;
+  align-items: center;
+  background-color: rgb(160, 103, 95);
+  cursor: pointer;
+  border-radius: 30px;
+  padding: 5px;
+  padding-right: 7px;
+  padding-bottom: 6px;
+  transition: transform 0.2s;
+}
+
+.treatment-record-tile span {
+  font-size: 18px;
+  color: white;
+  margin-left: 10px;
+}
+
+.treatment-record-tile:hover {
+  transform: scale(1.02);
+}
+
+.treatment-record-icon {
+  color: rgb(43, 10, 6);
+  margin-right: 6px;
+  margin-top: 1px;
+  font-size: 15px;
+}
+
+.right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete {
+  font-size: 12px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-top: 1px;
+  color: rgb(88, 22, 33);
+  background-color: rgb(245, 153, 168);
+}

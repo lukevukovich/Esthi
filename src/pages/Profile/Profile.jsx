@@ -5,6 +5,8 @@ import { faUser, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { checkSignInStatus, signIn, signOut } from "../../utils/Auth";
+import TreatmentRecordTile from "../../assets/TreatmentRecordTile/TreatmentRecordTile";
+import { records } from "../../../public/records";
 
 export default function Profile() {
   // States
@@ -62,6 +64,7 @@ export default function Profile() {
         noRecordsRef.current.style.display = "flex";
       }
       setUser(user);
+      setTreatmentRecords(records);
     } else {
       signInRef.current.style.display = "flex";
       signOutRef.current.style.display = "none";
@@ -69,6 +72,7 @@ export default function Profile() {
       noRecordsRef.current.style.display = "none";
       noRecordsSignInRef.current.style.display = "flex";
       setUser(null);
+      setTreatmentRecords([]);
     }
   }, [signedIn]);
 
@@ -94,6 +98,7 @@ export default function Profile() {
   }, [treatmentRecords]);
 
   useEffect(() => {
+    setTreatmentRecords(records);
     handleAuth();
   }, []);
 
@@ -145,6 +150,14 @@ export default function Profile() {
           <label className="no-records" ref={noRecordsRef}>
             No saved treamtent records
           </label>
+          <div className="treatment-records-pane">
+            {treatmentRecords.map((record, index) => (
+              <TreatmentRecordTile
+                key={index}
+                treatmentRecord={record}
+              ></TreatmentRecordTile>
+            ))}
+          </div>
         </div>
       </div>
     </div>
