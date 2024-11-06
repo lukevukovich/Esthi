@@ -6,12 +6,15 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { saveTreatmentRecord } from "../../utils/TreatmentRecordAPI";
+import { useNavigate } from "react-router-dom";
 
 export default function TreatmentRecordTile({
   treatmentRecord,
   treatmentRecords,
   setTreatmentRecords,
 }) {
+  const navigate = useNavigate();
+
   function formatDate(date) {
     const [year, month, day] = date.split("-");
     const dateObj = new Date(year, month - 1, day); // Month is 0-indexed
@@ -32,11 +35,16 @@ export default function TreatmentRecordTile({
     } catch (error) {}
   }
 
+  function clickRecord() {
+    sessionStorage.setItem("treatmentRecord", JSON.stringify(treatmentRecord));
+    navigate("/treatment-record");
+  }
+
   return (
     <div
       className="treatment-record-tile"
       onClick={() => {
-        console.log(treatmentRecord);
+        clickRecord();
       }}
     >
       <span className="record-name">

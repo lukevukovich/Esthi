@@ -12,7 +12,12 @@ import { useNavigate } from "react-router-dom";
 import { saveTreatmentRecord } from "../../utils/TreatmentRecordAPI";
 import { checkSignInStatus } from "../../utils/Auth";
 
-export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
+export default function IntakeForm({
+  intakeFormConfig,
+  formType,
+  saveButton,
+  viewOnly,
+}) {
   const navigate = useNavigate();
 
   const form = useRef(null);
@@ -39,16 +44,23 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
   }
 
   async function handleAI() {
+    const allInputs = form.current.querySelectorAll("*");
+    allInputs.forEach((input) => {
+      if (input.disabled) {
+        input.disabled = false;
+      }
+    });
+
     const formData = new FormData(form.current);
 
-    let formText = `This is an esthetician ${formType}. Please provide any feedback, insight, and suggestions based on the information provided.\n\n`;
+    let formText = `This is an esthetician ${formType}. Please provide any feedback, insight, and skincare suggestions based on the information provided.\n\n`;
     for (const [key, value] of formData.entries()) {
       if (value) {
         formText += `${key}: ${value}\n`;
       }
     }
 
-    if (signedIn) {
+    if (signedIn && saveButton && !viewOnly) {
       handleSave(false);
     }
     sessionStorage.setItem("intakeMessage", formText);
@@ -63,9 +75,18 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
       category.data.forEach((fieldConfig) => {
         const fieldName = fieldConfig.field;
         const labelName = fieldConfig.label;
-        let fieldValue = formData.get(labelName);
+        let fieldValue;
+        if (fieldConfig.type === "checkbox") {
+          fieldValue = formData.getAll(labelName);
+        } else {
+          fieldValue = formData.get(labelName);
+        }
 
-        if (fieldValue !== null && fieldValue !== "") {
+        if (
+          fieldValue !== null &&
+          fieldValue !== "" &&
+          fieldValue.length !== 0
+        ) {
           data.record[fieldName] = fieldValue;
         }
       });
@@ -138,16 +159,19 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
                       field.options.map((option, optIndex) => (
                         <div key={optIndex} className="option-item">
                           <input
+                            id={field.field}
                             type={field.type}
                             name={field.label}
                             value={option}
                             required={field.required}
+                            className={`${viewOnly ? "view-only" : ""}`}
                           />
                           <label>{option}</label>
                         </div>
                       ))
                     ) : field.type === "select" ? (
                       <select
+                        id={field.field}
                         name={field.label}
                         required={field.required}
                         ref={selectRef}
@@ -158,10 +182,17 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
                             e.target.style.color = "gray";
                           }
                         }}
+                        className={`${viewOnly ? "view-only" : ""}`}
                       >
-                        <option value="">Select an option</option>
+                        <option value="" id={field.field}>{`${
+                          viewOnly ? "" : "Select an Option"
+                        }`}</option>
                         {field.options.map((option, optIndex) => (
-                          <option key={optIndex} value={option}>
+                          <option
+                            key={optIndex}
+                            value={option}
+                            id={field.field}
+                          >
                             {option}
                           </option>
                         ))}
@@ -177,6 +208,8 @@ export default function IntakeForm({ intakeFormConfig, formType, saveButton }) {
                         required={field.required}
                         max={field.max}
                         min={field.min}
+                        id={field.field}
+                        className={`${viewOnly ? "view-only" : ""}`}
                       />
                     )}
                   </div>

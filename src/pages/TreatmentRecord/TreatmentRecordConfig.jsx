@@ -1,5 +1,3 @@
-import { faMinimize } from "@fortawesome/free-solid-svg-icons";
-
 // Fields used for treatment record form
 export const treatmentRecordConfig = [
   {
