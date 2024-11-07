@@ -1,7 +1,11 @@
 import "./Profile.css";
 import "../../App.css";
 import Header from "../../assets/Header/Header";
-import { faUser, faCheckCircle, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faCheckCircle,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { checkSignInStatus, signIn, signOut } from "../../utils/Auth";
@@ -13,8 +17,11 @@ export default function Profile() {
   const [signedIn, setSignedIn] = useState(null);
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
+  const [allTreatmentRecords, setAllTreatmentRecords] = useState([]);
   const [treatmentRecords, setTreatmentRecords] = useState([]);
   const [loadingPage, setLoadingPage] = useState(true);
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
 
   // Refs
   const loadingPageRef = useRef(null);
@@ -23,6 +30,8 @@ export default function Profile() {
   const userTextRef = useRef(null);
   const noRecordsSignInRef = useRef(null);
   const noRecordsRef = useRef(null);
+  const searchSortPaneRef = useRef(null);
+  const sortRef = useRef(null);
 
   // Handle sign in auth and element display
   async function handleSignIn() {
@@ -74,7 +83,9 @@ export default function Profile() {
       userTextRef.current.style.display = "none";
       noRecordsRef.current.style.display = "none";
       noRecordsSignInRef.current.style.display = "flex";
+      searchSortPaneRef.current.style.display = "none";
       setUser(null);
+      setAllTreatmentRecords([]);
       setTreatmentRecords([]);
     }
 
@@ -108,6 +119,14 @@ export default function Profile() {
   }, [treatmentRecords]);
 
   useEffect(() => {
+    if (allTreatmentRecords.length > 0) {
+      searchSortPaneRef.current.style.display = "flex";
+    } else {
+      searchSortPaneRef.current.style.display = "none";
+    }
+  }, [allTreatmentRecords]);
+
+  useEffect(() => {
     if (loadingPage) {
       loadingPageRef.current.style.display = "flex";
     } else {
@@ -117,6 +136,7 @@ export default function Profile() {
 
   async function loadTreatmentRecords() {
     const records = await getTreatmentRecords();
+    setAllTreatmentRecords(records);
     setTreatmentRecords(records);
   }
 
@@ -124,9 +144,73 @@ export default function Profile() {
     handleAuth();
   }, []);
 
+  function searchRecords() {
+    if (search === "") {
+      if (sort !== "") {
+        sortRecords(allTreatmentRecords);
+      } else {
+        setTreatmentRecords(allTreatmentRecords);
+      }
+    } else {
+      let records = allTreatmentRecords;
+      let searchRecords = records.filter((record) => {
+        return record.name.toLowerCase().includes(search.toLowerCase());
+      });
+
+      if (sort !== "") {
+        sortRecords(searchRecords);
+      } else {
+        setTreatmentRecords(searchRecords);
+      }
+    }
+  }
+
+  function sortRecords(existingRecords) {
+    let records = [...(existingRecords || treatmentRecords)];
+
+    if (sort === "name-ascending") {
+      records = records.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+    } else if (sort === "name-descending") {
+      records = records.sort((a, b) => {
+        return b.name.localeCompare(a.name);
+      });
+    } else if (sort === "newest") {
+      records = records.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+    } else if (sort === "oldest") {
+      records = records.sort((a, b) => {
+        return new Date(a.date) - new Date(b.date);
+      });
+    }
+
+    setTreatmentRecords(records);
+  }
+
+  useEffect(() => {
+    searchRecords();
+  }, [search]);
+
+  useEffect(() => {
+    if (sort !== "") {
+      sortRef.current.style.color = "black";
+    } else {
+      sortRef.current.style.color = "gray";
+    }
+
+    sortRecords();
+  }, [sort]);
+
   return (
     <div className="profile-page">
-      <div className="loading-page" ref={loadingPageRef}><FontAwesomeIcon icon={faSpinner} className="button-icon spinner"></FontAwesomeIcon></div>
+      <div className="loading-page" ref={loadingPageRef}>
+        <FontAwesomeIcon
+          icon={faSpinner}
+          className="button-icon spinner"
+        ></FontAwesomeIcon>
+      </div>
       <Header />
       <div className="profile-content">
         <div className="profile-section">
@@ -167,11 +251,36 @@ export default function Profile() {
         </div>
         <div className="profile-section treatment-records">
           <label className="profile-label">Treatment Records</label>
+          <div className="search-sort-pane" ref={searchSortPaneRef}>
+            <input
+              placeholder="Search client"
+              className="record-search"
+              type="text"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+            ></input>
+            <select
+              className="record-sort"
+              ref={sortRef}
+              value={sort}
+              onChange={(e) => {
+                setSort(e.target.value);
+              }}
+            >
+              <option value="">Sort</option>
+              <option value="name-ascending">A to Z</option>
+              <option value="name-descending">Z to A</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </div>
           <label className="no-records" ref={noRecordsSignInRef}>
             Sign in to save treatment records
           </label>
           <label className="no-records" ref={noRecordsRef}>
-            No saved treamtent records
+            No saved treatment records found
           </label>
           <div className="treatment-records-pane">
             {treatmentRecords.map((record, index) => (
@@ -180,6 +289,7 @@ export default function Profile() {
                 treatmentRecord={record}
                 treatmentRecords={treatmentRecords}
                 setTreatmentRecords={setTreatmentRecords}
+                setAllTreatmentRecords={setAllTreatmentRecords}
               ></TreatmentRecordTile>
             ))}
           </div>

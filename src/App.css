@@ -31,6 +31,19 @@ input {
   padding-right: 15px;
 }
 
+select {
+  font-size: 18px;
+  background-color: white;
+  flex-grow: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  padding-right: 15px;
+  color: gray;
+}
+
 button {
   font-size: 18px;
   color: black;
@@ -58,7 +71,7 @@ button:active {
 
 .button-icon {
   margin-right: 10px;
-  margin-left: 3px;  
+  margin-left: 3px;
   margin-top: 1px;
 }
 

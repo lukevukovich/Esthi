@@ -91,3 +91,29 @@
   font-size: 60px;
   color: white;
 }
+
+.search-sort-pane {
+  width: 90vw;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 16px;
+  display: none;
+}
+
+.search-sort-pane input {
+  flex-grow: 1;
+  width: 100%;
+  font-size: 16px;
+}
+
+.search-sort-pane select {
+  font-size: 16px;
+  text-align: end;
+  padding-right: 4px;
+  padding-left: 10px;
+}
+
+.search-sort-pane option {
+  color: black;
+}

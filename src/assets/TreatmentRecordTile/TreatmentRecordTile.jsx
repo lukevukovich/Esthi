@@ -12,6 +12,7 @@ export default function TreatmentRecordTile({
   treatmentRecord,
   treatmentRecords,
   setTreatmentRecords,
+  setAllTreatmentRecords,
 }) {
   const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ export default function TreatmentRecordTile({
       const newRecords = treatmentRecords.filter(
         (record) => record.recordId !== treatmentRecord.recordId
       );
+      setAllTreatmentRecords(newRecords);
       setTreatmentRecords(newRecords);
     } catch (error) {}
   }
