@@ -12,11 +12,15 @@ export default function ChatInterface({
   onSend,
   isTyping,
 }) {
+  // States
+  const [enabled, setEnabled] = useState(false);
+
+  // Refs
   const inputRef = useRef(null);
   const sendRef = useRef(null);
   const messagesRef = useRef(null);
-  const [enabled, setEnabled] = useState(false);
 
+  // Handle send button enable/disable
   useEffect(() => {
     if (message) {
       sendRef.current.disabled = false;
@@ -27,10 +31,12 @@ export default function ChatInterface({
     }
   }, [message]);
 
+  // Scroll to bottom of chat on new message
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [chatList]);
 
+  // Disable input when AI is typing
   useEffect(() => {
     if (isTyping) {
       inputRef.current.disabled = true;

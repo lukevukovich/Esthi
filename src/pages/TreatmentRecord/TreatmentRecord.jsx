@@ -5,6 +5,7 @@ import { treatmentRecordConfig } from "./TreatmentRecordConfig";
 export default function TreatmentRecord() {
   const [viewOnly, setViewOnly] = useState(false);
 
+  // Load treatment record data into form if present in session storage
   useEffect(() => {
     const treatmentRecord = JSON.parse(
       sessionStorage.getItem("treatmentRecord")

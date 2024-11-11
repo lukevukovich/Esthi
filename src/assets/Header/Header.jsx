@@ -12,7 +12,7 @@ import { useEffect, useRef } from "react";
 export default function Header() {
   const navigate = useNavigate();
 
-  // Reverse the order ref and string
+  // Refs for navigation buttons
   const buttonRefs = {
     "/client-intake-form": useRef(null),
     "/treatment-record": useRef(null),
@@ -20,6 +20,7 @@ export default function Header() {
     "/profile": useRef(null),
   };
 
+  // Handle current page styling
   useEffect(() => {
     for (const [key, button] of Object.entries(buttonRefs)) {
       if (button.current) {

@@ -67,6 +67,11 @@ export default function Profile() {
     }
   }
 
+  useEffect(() => {
+    handleAuth();
+  }, []);
+
+  // Handle element display based on sign in status
   async function handleSignedInChange() {
     if (signedIn) {
       signInRef.current.style.display = "none";
@@ -92,7 +97,6 @@ export default function Profile() {
     setLoadingPage(false);
   }
 
-  // Handle element display based on sign in status
   useEffect(() => {
     handleSignedInChange();
   }, [signedIn]);
@@ -126,6 +130,7 @@ export default function Profile() {
     }
   }, [allTreatmentRecords]);
 
+  // Display loading page if needed
   useEffect(() => {
     if (loadingPage) {
       loadingPageRef.current.style.display = "flex";
@@ -134,16 +139,14 @@ export default function Profile() {
     }
   }, [loadingPage]);
 
+  // Load treatment records from database
   async function loadTreatmentRecords() {
     const records = await getTreatmentRecords();
     setAllTreatmentRecords(records);
     setTreatmentRecords(records);
   }
 
-  useEffect(() => {
-    handleAuth();
-  }, []);
-
+  // Search and sort treatment records based on search input
   function searchRecords() {
     if (search === "") {
       if (sort !== "") {
@@ -165,6 +168,7 @@ export default function Profile() {
     }
   }
 
+  // Sort treatment records based on selected option
   function sortRecords(existingRecords) {
     let records = [...(existingRecords || treatmentRecords)];
 

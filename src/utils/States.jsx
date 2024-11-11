@@ -7,6 +7,7 @@ export const states = [
   "Colorado",
   "Connecticut",
   "Delaware",
+  "District of Columbia",
   "Florida",
   "Georgia",
   "Hawaii",
@@ -49,5 +50,4 @@ export const states = [
   "West Virginia",
   "Wisconsin",
   "Wyoming",
-  "District of Columbia",
 ];

@@ -20,17 +20,41 @@ export default function IntakeForm({
 }) {
   const navigate = useNavigate();
 
+  // States
+  const [saving, setSaving] = useState(false);
+  const [saveIcon, setSaveIcon] = useState(faCloud);
+  const [saveText, setSaveText] = useState(`Save ${formType}`);
+  const [signedIn, setSignedIn] = useState(false);
+  const [lastClick, setLastClick] = useState(null);
+
+  // Refs
   const form = useRef(null);
   const selectRef = useRef(null);
   const saveRef = useRef(null);
 
-  const [saving, setSaving] = useState(false);
-  const [saveIcon, setSaveIcon] = useState(faCloud);
-  const [saveText, setSaveText] = useState(`Save ${formType}`);
+  // Handle sign in status
+  async function handleSignInLoad() {
+    const { isSignedIn } = await checkSignInStatus();
 
-  const [signedIn, setSignedIn] = useState(false);
-  const [lastClick, setLastClick] = useState(null);
+    if (isSignedIn) {
+      setSignedIn(true);
+    } else {
+      setSignedIn(false);
+    }
+  }
 
+  useEffect(() => {
+    if (signedIn && saveButton && saveRef.current) {
+      saveRef.current.style.display = "flex";
+    }
+  }, [signedIn]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    handleSignInLoad();
+  }, []);
+
+  // Submit form, save or AI chat
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -43,6 +67,7 @@ export default function IntakeForm({
     setLastClick(null);
   }
 
+  // Send form data to AI chat
   async function handleAI() {
     const allInputs = form.current.querySelectorAll("*");
     allInputs.forEach((input) => {
@@ -67,6 +92,7 @@ export default function IntakeForm({
     navigate("/ai-chat");
   }
 
+  // Save treatment record to database
   async function handleSave(navigateAfterSave) {
     const formData = new FormData(form.current);
     let data = { record: {} };
@@ -106,6 +132,7 @@ export default function IntakeForm({
     }
   }
 
+  // Set save button text and icon based on saving status
   useEffect(() => {
     if (saveButton) {
       if (saving) {
@@ -121,27 +148,6 @@ export default function IntakeForm({
       }
     }
   }, [saving]);
-
-  async function handleSignInLoad() {
-    const { isSignedIn } = await checkSignInStatus();
-
-    if (isSignedIn) {
-      setSignedIn(true);
-    } else {
-      setSignedIn(false);
-    }
-  }
-
-  useEffect(() => {
-    if (signedIn && saveButton && saveRef.current) {
-      saveRef.current.style.display = "flex";
-    }
-  }, [signedIn]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    handleSignInLoad();
-  }, []);
 
   return (
     <div className="intake">

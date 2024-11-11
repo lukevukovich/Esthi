@@ -5,6 +5,13 @@ import { useEffect, useState } from "react";
 import { getChatGPTReply } from "../../utils/ChatGPT";
 
 export default function Chat() {
+  // States
+  const [message, setMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  // Chat history length for AI memory
+  const chatHistoryLength = 20;
+
   //Chat list for sender/receiver
   const [chatList, setChatList] = useState([
     {
@@ -12,8 +19,6 @@ export default function Chat() {
       sender: "peer",
     },
   ]);
-
-  const chatHistoryLength = 20;
 
   // Single session chat history for the esthetician
   const [chatHistory, setChatHistory] = useState([
@@ -23,9 +28,6 @@ export default function Chat() {
         "You are a world-renowned esthetician with extensive expertise in skincare, skin conditions, treatment techniques, and product ingredients. Your audience consists of trained estheticians seeking advanced insights, professional guidance, and recommendations to refine their practice. Provide detailed, accurate answers that reflect current best practices in the field of esthetics.",
     },
   ]);
-
-  const [message, setMessage] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
 
   // Handle intake form submission, send to chatbot
   async function handleIntakeFormSubmit() {

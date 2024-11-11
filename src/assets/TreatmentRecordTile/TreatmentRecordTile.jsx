@@ -16,9 +16,10 @@ export default function TreatmentRecordTile({
 }) {
   const navigate = useNavigate();
 
+  // Format date for treatment record
   function formatDate(date) {
     const [year, month, day] = date.split("-");
-    const dateObj = new Date(year, month - 1, day); // Month is 0-indexed
+    const dateObj = new Date(year, month - 1, day);
     return dateObj.toLocaleDateString("en-US", {
       month: "2-digit",
       day: "2-digit",
@@ -26,6 +27,7 @@ export default function TreatmentRecordTile({
     });
   }
 
+  // Delete treatment record from database
   function deleteRecord() {
     try {
       saveTreatmentRecord(treatmentRecord);
@@ -37,6 +39,7 @@ export default function TreatmentRecordTile({
     } catch (error) {}
   }
 
+  // Click on treatment record to view
   function clickRecord() {
     sessionStorage.setItem("treatmentRecord", JSON.stringify(treatmentRecord));
     navigate("/treatment-record");
