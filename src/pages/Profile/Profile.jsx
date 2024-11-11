@@ -205,7 +205,7 @@ export default function Profile() {
     if (sort !== "") {
       sortRef.current.style.color = "black";
     } else {
-      sortRef.current.style.color = "gray";
+      sortRef.current.style.color = "rgba(0, 0, 0, 0.5)";
     }
 
     sortRecords();

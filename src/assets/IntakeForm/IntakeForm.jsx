@@ -185,7 +185,7 @@ export default function IntakeForm({
                           if (e.target.value !== "") {
                             e.target.style.color = "black";
                           } else {
-                            e.target.style.color = "gray";
+                            e.target.style.color = "rgba(0, 0, 0, 0.5)";
                           }
                         }}
                         className={`${viewOnly ? "view-only" : ""}`}
