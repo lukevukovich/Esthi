@@ -109,11 +109,12 @@
 
 .search-sort-pane select {
   font-size: 16px;
-  text-align: end;
+  text-align: right;
   padding-right: 4px;
   padding-left: 10px;
 }
 
 .search-sort-pane option {
+  text-align: right;
   color: black;
 }

@@ -69,13 +69,11 @@
 }
 
 .disabled {
-  background-color: rgb(196, 196, 196);
+  opacity: 55%;
   cursor: not-allowed;
-  color: rgb(80, 80, 80);
 }
 
 .disabled:hover {
-  background-color: rgb(196, 196, 196);
   transform: none;
 }
 

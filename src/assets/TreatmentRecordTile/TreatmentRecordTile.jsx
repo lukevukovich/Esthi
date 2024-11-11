@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { saveTreatmentRecord } from "../../utils/TreatmentRecordAPI";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../utils/FormatDate";
 
 export default function TreatmentRecordTile({
   treatmentRecord,
@@ -15,17 +16,6 @@ export default function TreatmentRecordTile({
   setAllTreatmentRecords,
 }) {
   const navigate = useNavigate();
-
-  // Format date for treatment record
-  function formatDate(date) {
-    const [year, month, day] = date.split("-");
-    const dateObj = new Date(year, month - 1, day);
-    return dateObj.toLocaleDateString("en-US", {
-      month: "2-digit",
-      day: "2-digit",
-      year: "2-digit",
-    });
-  }
 
   // Delete treatment record from database
   function deleteRecord() {

@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { checkSignInStatus, signIn, signOut } from "../../utils/Auth";
 import TreatmentRecordTile from "../../assets/TreatmentRecordTile/TreatmentRecordTile";
 import { getTreatmentRecords } from "../../utils/TreatmentRecordAPI";
+import { formatDate } from "../../utils/FormatDate";
 
 export default function Profile() {
   // States
@@ -66,10 +67,6 @@ export default function Profile() {
       setUser(null);
     }
   }
-
-  useEffect(() => {
-    handleAuth();
-  }, []);
 
   // Handle element display based on sign in status
   async function handleSignedInChange() {
@@ -160,6 +157,13 @@ export default function Profile() {
         return record.name.toLowerCase().includes(search.toLowerCase());
       });
 
+      if (searchRecords.length === 0) {
+        searchRecords = records.filter((record) => {
+          const date = formatDate(record.date);
+          return date.includes(search);
+        });
+      }
+
       if (sort !== "") {
         sortRecords(searchRecords);
       } else {
@@ -206,6 +210,10 @@ export default function Profile() {
 
     sortRecords();
   }, [sort]);
+
+  useEffect(() => {
+    handleAuth();
+  }, []);
 
   return (
     <div className="profile-page">
@@ -257,7 +265,7 @@ export default function Profile() {
           <label className="profile-label">Treatment Records</label>
           <div className="search-sort-pane" ref={searchSortPaneRef}>
             <input
-              placeholder="Search client"
+              placeholder="Search client or date"
               className="record-search"
               type="text"
               value={search}
