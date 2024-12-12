@@ -22,6 +22,7 @@
 }
 
 .treatment-record-tile:hover {
+  background-color: rgb(177, 117, 109);
   transform: scale(1.02);
 }
 
