@@ -4,6 +4,7 @@ import "../../App.css";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { marked } from "marked";
 
 export default function ChatInterface({
   chatList,
@@ -49,11 +50,19 @@ export default function ChatInterface({
     <div className="chat-interface">
       <div className="message-panel">
         <div className="message-list" ref={messagesRef}>
-          {chatList.map((chat, index) => (
-            <span key={index} className={`message ${chat.sender}`}>
-              {chat.text}
-            </span>
-          ))}
+          {chatList.map((chat, index) =>
+            chat.sender === "peer" ? (
+              <span
+                dangerouslySetInnerHTML={{ __html: marked(chat.text) }}
+                key={index}
+                className={`message ${chat.sender}`}
+              ></span>
+            ) : (
+              <span key={index} className={`message ${chat.sender}`}>
+                {chat.text}
+              </span>
+            )
+          )}
           <span
             className={`message peer ${isTyping ? "typing" : "not-typing"}`}
           >

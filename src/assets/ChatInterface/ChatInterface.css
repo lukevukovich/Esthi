@@ -18,17 +18,34 @@
   border-radius: 12px;
   max-width: 70%;
   width: fit-content;
-  padding: 7px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 9px;
+  padding: 7px 10px 9px 10px;
   margin-bottom: 10px;
-  justify-content: center;
-  align-items: center;
-  text-wrap: break-word;
-  overflow-wrap: break-word;
   font-size: 18px;
-  white-space: pre-line;
+  word-break: break-word;
+  white-space: normal;
+  display: block;
+}
+
+.message p {
+  margin: 0
+}
+
+.message ul {
+  padding-left: 1em;
+  margin: 0;
+  list-style: disc;
+}
+
+.message li {
+  margin: 0.25em 0;
+}
+
+.message strong {
+  font-weight: bold;
+}
+
+.message em {
+  font-style: italic;
 }
 
 .peer {
@@ -42,6 +59,10 @@
   background-color: rgb(214, 103, 121);
   margin-left: auto;
   align-self: flex-end;
+}
+
+.message.user {
+  white-space: pre-wrap;
 }
 
 .input-panel {
